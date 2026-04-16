@@ -1,11 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func PrintAscii(inputstr string, bannerMap map[rune][]string) {
-	for line := 0; line < 8; line++ {
-		for _, r := range inputstr {
-			fmt.Print(bannerMap[r][line])
+	lines := strings.Split(inputstr, "\n")
+
+	for _, n := range lines {
+		for line := 0; line < 8; line++ {
+			for _, r := range n {
+				fmt.Print(bannerMap[r][line])
+			}
+			fmt.Println()
 		}
+		// if i < len(lines)-1 {
+		// 	fmt.Println()
+		// }
 	}
+
 }

@@ -3,16 +3,17 @@ package main
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func main() {
 	if len(os.Args) < 3 {
-		fmt.Println("Error! Usage: go run main.go <bannerfile> <string>")
+		fmt.Println("Error! Usage: go run . <bannerfile> <string>")
 		return
 	}
 
 	bannerFile := os.Args[1]
-	inputstr := os.Args[2]
+	inputstr := strings.ReplaceAll(os.Args[2], "\\n", "\n")
 
 	bannerMap, err := LoadBanner("banner/" + bannerFile + ".txt")
 	if err != nil {
