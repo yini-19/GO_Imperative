@@ -21,8 +21,11 @@ func LoadBanner(bannerFile string) (map[rune][]string, error) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line == "" && len(lines) > 0 {
-
+			bannerMap[rune(charcode)] = lines
+			lines = []string{}
+			charcode++
 		}
+		lines = append(lines, line)
 	}
-
+	return bannerMap, nil
 }
