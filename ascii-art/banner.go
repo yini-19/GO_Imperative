@@ -25,7 +25,7 @@ func LoadBanner(bannerFile string) (map[rune][]string, error) {
 			lines = []string{}
 			charcode++
 		}
-		lines = append(lines, line)
+		lines = append(lines, line) 
 	}
 	return bannerMap, nil
 }

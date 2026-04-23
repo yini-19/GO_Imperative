@@ -7,15 +7,26 @@ import (
 )
 
 func main() {
-	if len(os.Args) < 3 {
-		fmt.Println("Error! Usage: go run . <bannerfile> <string>")
+	if len(os.Args) < 2 || len(os.Args) > 3 {
+		fmt.Println("Usage: go run . <string>", "or", "go run . <string> <banner_file>")
 		return
 	}
 
-	bannerFile := os.Args[1]
-	inputstr := strings.ReplaceAll(os.Args[2], "\\n", "\n")
+	bannerFile := "standard.txt"
+	if len(os.Args) == 3 {
+		bannerFile = os.Args[2]
+	}
+	inputstr := strings.ReplaceAll(os.Args[1], "\\n", "\n")
 
-	bannerMap, err := LoadBanner("banner/" + bannerFile + ".txt")
+	if inputstr == "" {
+		fmt.Println()
+		return
+	}
+	if inputstr == "\n" {
+		fmt.Println()
+		return
+	}
+	bannerMap, err := LoadBanner("banner/" + bannerFile)
 	if err != nil {
 		fmt.Println("Error loading file:", err)
 		return
