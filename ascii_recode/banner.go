@@ -12,7 +12,7 @@ func LoadBanner(filename string) (map[rune][]string, error) {
 	}
 	defer file.Close()
 
-	bannerMap := make(map[rune][]string)
+	banner := make(map[rune][]string)
 	scanner := bufio.NewScanner(file)
 
 	var lines []string
@@ -21,11 +21,21 @@ func LoadBanner(filename string) (map[rune][]string, error) {
 	for scanner.Scan() {
 		line := scanner.Text()
 		if line == "" && len(lines) > 0 {
-			bannerMap[rune(charcode)] = lines
+			banner[rune(charcode)] = lines
 			lines = []string{}
 			charcode++
 		}
-		lines = append(lines, line)
+		if line != "" {
+			lines = append(lines, line)
+		}
+		
 	}
-	return bannerMap, nil
+	if charcode < 32 || charcode > 126 || len(lines) != 8 {
+		return nil, os.ErrInvalid	
+	}
+	if len(lines) > 0 {
+		banner[rune(charcode)] = lines
+	}
+	
+	return banner, err
 }
