@@ -3,5 +3,6 @@ package main
 import "strings"
 
 func SplitLine(line string) []string {
-	return strings.Split(line, "\\n")
+	line = strings.ReplaceAll(line, "\\n", "\n")
+	return strings.Split(line, "\n")
 }
